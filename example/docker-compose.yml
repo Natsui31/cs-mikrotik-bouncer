@@ -9,6 +9,8 @@ services:
       MIKROTIK_HOST: "x.x.x.x:8728"
       MIKROTIK_USER: "api"
       MIKROTIK_PASS: "password"
+      MIKROTIK_TLS: "true"
+      MIKROTIK_TLS_SKIP_CERTIFICATE: "false"
     restart: unless-stopped
 
 

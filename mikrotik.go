@@ -1,6 +1,7 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"strings"
 
@@ -11,6 +12,9 @@ import (
 )
 
 func dial() (*routeros.Client, error) {
+	if skipCertificate && useTLS {
+		return routeros.DialTLS(mikrotikHost, username, password, &tls.Config{InsecureSkipVerify: true})
+	}
 	if useTLS {
 		return routeros.DialTLS(mikrotikHost, username, password, nil)
 	}
