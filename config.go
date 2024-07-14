@@ -16,6 +16,7 @@ var (
 	password              string
 	async                 bool
 	useTLS                bool
+	skipCertificate       bool
 	useIPV6               bool
 )
 
@@ -30,6 +31,8 @@ func initConfig() {
 	viper.BindEnv("mikrotik_pass")
 	viper.BindEnv("mikrotik_tls")
 	viper.SetDefault("mikrotik_tls", "true")
+	viper.BindEnv("mikrotik_tls_skip_certificate")
+	viper.SetDefault("mikrotik_tls_skip_certificate", "false")
 	viper.BindEnv("mikrotik_ipv6")
 	viper.SetDefault("mikrotik_ipv6", "true")
 
@@ -61,6 +64,7 @@ func initConfig() {
 	}
 
 	useTLS = viper.GetBool("mikrotik_tls")
+	skipCertificate = viper.GetBool("mikrotik_tls_skip_certificate")
 	useIPV6 = viper.GetBool("mikrotik_ipv6")
 
 	all := viper.AllSettings()
