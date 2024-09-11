@@ -18,6 +18,7 @@ var (
 	useTLS                bool
 	skipCertificate       bool
 	useIPV6               bool
+	crowdsecOrigins       []string
 )
 
 func initConfig() {
@@ -35,6 +36,8 @@ func initConfig() {
 	viper.SetDefault("mikrotik_tls_skip_certificate", "false")
 	viper.BindEnv("mikrotik_ipv6")
 	viper.SetDefault("mikrotik_ipv6", "true")
+	viper.BindEnv("crowdsec_origins")
+	viper.SetDefault("crowdsec_origins", nil)
 
 	logLevel = viper.GetString("log_level")
 	level, err := zerolog.ParseLevel(logLevel)
@@ -51,6 +54,9 @@ func initConfig() {
 	if crowdsecBouncerURL == "" {
 		log.Fatal().Msg("Crowdsec URL is not set")
 	}
+
+	crowdsecOrigins = viper.GetStringSlice("crowdsec_origins")
+
 	mikrotikHost = viper.GetString("mikrotik_host")
 
 	username = viper.GetString("mikrotik_user")
